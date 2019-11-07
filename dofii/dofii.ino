@@ -1,4 +1,4 @@
-/* DOFII by The Roboteur */
+/* ROBOT DOFII by The Roboteur */
 /* Description: Human interactive homebrewed robot */
 
 
@@ -62,10 +62,10 @@ void setup() {
   pinMode(echoPin, INPUT);
   
   ArduinoOTA.begin();
-  /* Serial.println("Ready");
+  Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  */
+  
 
   // SET THE ROUTE IP/ota thru ESP.restart() function
   // BYPASSES THE LOOP
@@ -138,6 +138,11 @@ void setup() {
     server.send(200, "text/plain", "Dofii's normal.");
     delay(1000);
     state_current = 6;
+  });
+
+    server.on("/", [](){
+    server.send(200, "text/plain", "1] ip/ota 2] ip/blinkFast 3] ip/blinkSlow 4] ip/blinkNormal 5] ip/stretch 6] ip/scan 7] ip/stop");
+    delay(1000);
   });
 
   
