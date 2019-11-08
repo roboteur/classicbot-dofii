@@ -66,34 +66,6 @@ void setup() {
 
   // SET THE ROUTE IP/ota thru ESP.restart() function
   // BYPASSES THE LOOP
-  server.on("/ota", [](){
-    server.send(200, "text/plain", "Upload the firmware.");
-    delay(1000);
-    ESP.restart();    
-  });
-
-  server.on("/blinkFast", [](){
-    server.send(200, "text/plain", "Fast blink!" );
-    delay(1000);
-    blinkSpeed = 100;    
-  });
-  
-  server.on("/blinkSlow", [](){
-    server.send(200, "text/plain", "Slow blink!");
-    delay(1000);
-    blinkSpeed = 2000;    
-  });
-
-  server.on("/blinkNormal", [](){
-    server.send(200, "text/plain", "Normal blink.");
-    delay(1000);
-    blinkSpeed = 1000;    
-  });
-
-  server.on("/list", [](){
-    server.send(200, "text/plain", "1] ip/ota 2] ip/blinkFast 3] ip/blinkSlow 4] ip/blinkNormal 5] ip/stretch 6] ip/scan 7] ip/stop");
-    delay(1000);
-  });
 
   server.on("/stretch", [](){
     server.send(200, "text/plain", "Dofii stretches.");
@@ -137,16 +109,13 @@ void setup() {
     state_current = 6;
   });
 
- /*    server.on("/", [](){
-    server.send(200, "text/plain", "1] ip/ota 2] ip/blinkFast 3] ip/blinkSlow 4] ip/blinkNormal 5] ip/stretch 6] ip/scan 7] ip/stop");
-    delay(1000);
-  }); */
-
   server.on("/", handle_OnConnect);
-
+  server.on("/up", handle_Up);
+  server.on("/down", handle_Down);
+  server.on("/right", handle_Right);
+  server.on("/left", handle_Left);
   
   server.begin();
- 
 
 }
 
@@ -252,48 +221,34 @@ void state_machine_serial() {
                                 
               break;
            
-  }   
-
-  
+  }     
 }
 
 void handle_OnConnect() {
-
-  // Temperature = dht.readTemperature(); // Gets the values of the temperature
-  // Humidity = dht.readHumidity(); // Gets the values of the humidity 
-  
-  // int Light = analogRead(A0);
-
-  // digitalWrite(pinOut02, HIGH);                  // Y1
-  // digitalWrite(pinOut03, LOW);
-  // digitalWrite(pinOut04, LOW);
-  // delay(250);
-  // int Light = analogRead(pinInA0);             // Sensing voltage input in pin A0 and converting to integer values (0 - 1023)
-    // Serial.print("A1 = ");                       // Label the ouput 
-    // Serial.println (valueInA1);
-    // delay(750);
-
-  // digitalWrite(pinOut02, LOW);                   // Y2
-  // digitalWrite(pinOut03, HIGH);
-  // digitalWrite(pinOut04, LOW);
-  // delay(250);
-    // valueInA2 = analogRead(pinInA0);             // Sensing voltage input in pin A0 and converting to integer values (0 - 1023)
-    // Serial.print("A2 = ");                       // Label the ouput 
-    // Serial.println (valueInA2);
-    // delay(750);   
-
-  /* Temporary random mutation */
-  // Temperature = 28;
-  // Humidity = 80;
-  // int Light = 567;
-  // valueInA2 = 567;
-   
-  // server.send(200, "text/html", SendHTML(Temperature,Humidity, Light, valueInA2)); 
-  // server.send(200, "text/html", SendHTML(Temperature,Humidity, Light)); 
   server.send(200, "text/html", SendHTML()); 
   
   }
 
+void handle_Up()  {
+  server.send(200, "text/html", UpHTML());
+  
+  }
+
+void handle_Down()  {
+  server.send(200, "text/html", DownHTML());
+  
+  }
+
+void handle_Right()  {
+  server.send(200, "text/html", RightHTML());
+  
+  }
+
+void handle_Left()  {
+  server.send(200, "text/html", LeftHTML());
+  
+  }
+  
 String SendHTML(){
   String ptr = "<!DOCTYPE html> <html>\n";
   ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
@@ -306,10 +261,98 @@ String SendHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-  ptr +="<p>UP</p>";
-  ptr +="<p>DOWN</p>";
-  ptr +="<p>LEFT</p>";
-  ptr +="<p>RIGHT</p>";  
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String LeftHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String RightHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String UpHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String DownHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
