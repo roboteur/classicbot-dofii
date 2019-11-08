@@ -220,7 +220,11 @@ void state_machine_serial() {
            }
                                 
               break;
-           
+              
+        case 7: // UP
+        
+
+          
   }     
 }
 
