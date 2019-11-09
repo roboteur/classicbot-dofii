@@ -67,6 +67,12 @@ void setup() {
   // SET THE ROUTE IP/ota thru ESP.restart() function
   // BYPASSES THE LOOP
 
+  server.on("/ota", [](){
+    server.send(200, "text/plain", "Upload the firmware.");
+    delay(1000);
+    ESP.restart();    
+  });
+
   server.on("/stretch", [](){
     server.send(200, "text/plain", "Dofii stretches.");
     delay(1000);
@@ -109,11 +115,14 @@ void setup() {
     state_current = 6;
   });
 
+  /* Mobile Control */
   server.on("/", handle_OnConnect);
   server.on("/up", handle_Up);
   server.on("/down", handle_Down);
   server.on("/right", handle_Right);
   server.on("/left", handle_Left);
+  server.on("/mid", handle_Mid);
+  
   
   server.begin();
 
@@ -220,10 +229,27 @@ void state_machine_serial() {
            }
                                 
               break;
-              
-        case 7: // UP
-        
 
+           /* Mobile Control */   
+       case 7: // UP
+           SERVO_HEAD.write(0);
+           
+           break;
+
+       case 8: // DOWN
+           SERVO_HEAD.write(180);
+           
+           break;
+
+       case 9: // LEFT
+           SERVO_BODY.write(0);
+           
+           break;
+        
+       case 10: // RIGHT
+           SERVO_BODY.write(180);
+           
+           break;
           
   }     
 }
@@ -234,25 +260,36 @@ void handle_OnConnect() {
   }
 
 void handle_Up()  {
+  state_current = 7;
   server.send(200, "text/html", UpHTML());
   
   }
 
 void handle_Down()  {
+  state_current = 8;
   server.send(200, "text/html", DownHTML());
   
   }
 
 void handle_Right()  {
+  state_current = 10;
   server.send(200, "text/html", RightHTML());
   
   }
 
 void handle_Left()  {
+  state_current = 9;
   server.send(200, "text/html", LeftHTML());
   
   }
   
+void handle_Mid()  {
+  state_current = 4;
+  server.send(200, "text/html", MidHTML());
+  
+  }
+
+
 String SendHTML(){
   String ptr = "<!DOCTYPE html> <html>\n";
   ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
@@ -266,8 +303,10 @@ String SendHTML(){
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
   ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/ready\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
   ptr +="</div>\n";
   ptr +="</body>\n";
@@ -288,8 +327,10 @@ String LeftHTML(){
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
   ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
   ptr +="</div>\n";
   ptr +="</body>\n";
@@ -309,9 +350,11 @@ String RightHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+ ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
   ptr +="</div>\n";
   ptr +="</body>\n";
@@ -332,8 +375,10 @@ String UpHTML(){
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
   ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
   ptr +="</div>\n";
   ptr +="</body>\n";
@@ -354,9 +399,35 @@ String DownHTML(){
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
   ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
-  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String MidHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
