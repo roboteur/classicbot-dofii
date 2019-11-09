@@ -16,5 +16,10 @@
 Ultrasonic Sensor x 1 = 
 ESP8266 X 1 = 
 
+<<<<<<< HEAD
 ## ESP8266 Setup
 ## Wiring Connection
+=======
+# ESP8266 Setup
+# Wiring Connection
+>>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc

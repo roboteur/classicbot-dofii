@@ -302,9 +302,18 @@ String SendHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
+<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
+=======
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/ready\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+>>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -323,9 +332,18 @@ String LeftHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
+<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
+=======
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+>>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -344,9 +362,18 @@ String RightHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
+<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
+=======
+ ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+>>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -365,9 +392,18 @@ String UpHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
+<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
+=======
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+>>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -386,9 +422,18 @@ String DownHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
+<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
+=======
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
+>>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -407,9 +452,18 @@ String MidHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
+<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
+=======
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
+>>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
