@@ -1,8 +1,5 @@
-/* DOFII by The Roboteur */
-/* Description: Human interactive homebrewed robot */
+/* ROBOT DOFII by The Roboteur */
 
-
-/* OTA Dependencies */
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
@@ -62,40 +59,18 @@ void setup() {
   pinMode(echoPin, INPUT);
   
   ArduinoOTA.begin();
-  /* Serial.println("Ready");
+  Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  */
+  
 
   // SET THE ROUTE IP/ota thru ESP.restart() function
   // BYPASSES THE LOOP
+
   server.on("/ota", [](){
     server.send(200, "text/plain", "Upload the firmware.");
     delay(1000);
     ESP.restart();    
-  });
-
-  server.on("/blinkFast", [](){
-    server.send(200, "text/plain", "Fast blink!" );
-    delay(1000);
-    blinkSpeed = 100;    
-  });
-  
-  server.on("/blinkSlow", [](){
-    server.send(200, "text/plain", "Slow blink!");
-    delay(1000);
-    blinkSpeed = 2000;    
-  });
-
-  server.on("/blinkNormal", [](){
-    server.send(200, "text/plain", "Normal blink.");
-    delay(1000);
-    blinkSpeed = 1000;    
-  });
-
-  server.on("/list", [](){
-    server.send(200, "text/plain", "1] ip/ota 2] ip/blinkFast 3] ip/blinkSlow 4] ip/blinkNormal 5] ip/stretch 6] ip/scan 7] ip/stop");
-    delay(1000);
   });
 
   server.on("/stretch", [](){
@@ -140,12 +115,44 @@ void setup() {
     state_current = 6;
   });
 
+  /* Mobile Control */
+  server.on("/", handle_OnConnect);
+  server.on("/up", handle_Up);
+  server.on("/down", handle_Down);
+  server.on("/right", handle_Right);
+  server.on("/left", handle_Left);
+  server.on("/mid", handle_Mid);
+  
   
   server.begin();
- 
 
 }
-/****************** NEW FUNCTIONS **************************************/
+
+void loop() {
+ 
+  /* For Route IP OTA */
+  if(ota_flag)
+  {
+    while(time_elapsed < 25000)
+    {
+      ArduinoOTA.handle();
+      time_elapsed = millis();
+      delay(10);
+    }
+    ota_flag = false;
+  }
+
+  server.handleClient();
+  
+  // digitalWrite(2, !digitalRead(2));
+  // delay(blinkSpeed);
+
+  state_machine_serial();
+
+  
+
+}
+
 void state_machine_serial() {
  
   // state_previous = state_current; delay(1000);
@@ -222,33 +229,207 @@ void state_machine_serial() {
            }
                                 
               break;
-           
-  }   
 
-  
+           /* Mobile Control */   
+       case 7: // UP
+           SERVO_HEAD.write(0);
+           
+           break;
+
+       case 8: // DOWN
+           SERVO_HEAD.write(180);
+           
+           break;
+
+       case 9: // LEFT
+           SERVO_BODY.write(0);
+           
+           break;
+        
+       case 10: // RIGHT
+           SERVO_BODY.write(180);
+           
+           break;
+          
+  }     
 }
 
-void loop() {
- 
-  /* For Route IP OTA */
-  if(ota_flag)
-  {
-    while(time_elapsed < 25000)
-    {
-      ArduinoOTA.handle();
-      time_elapsed = millis();
-      delay(10);
-    }
-    ota_flag = false;
+void handle_OnConnect() {
+  server.send(200, "text/html", SendHTML()); 
+  
   }
 
-  server.handleClient();
+void handle_Up()  {
+  state_current = 7;
+  server.send(200, "text/html", UpHTML());
   
-  // digitalWrite(2, !digitalRead(2));
-  // delay(blinkSpeed);
+  }
 
-  state_machine_serial();
-
+void handle_Down()  {
+  state_current = 8;
+  server.send(200, "text/html", DownHTML());
   
+  }
 
-}
+void handle_Right()  {
+  state_current = 10;
+  server.send(200, "text/html", RightHTML());
+  
+  }
+
+void handle_Left()  {
+  state_current = 9;
+  server.send(200, "text/html", LeftHTML());
+  
+  }
+  
+void handle_Mid()  {
+  state_current = 4;
+  server.send(200, "text/html", MidHTML());
+  
+  }
+
+
+String SendHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/ready\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String LeftHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String RightHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+ ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String UpHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String DownHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
+
+String MidHTML(){
+  String ptr = "<!DOCTYPE html> <html>\n";
+  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<title>DOFII</title>\n";
+  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
+  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
+  ptr +="p {font-size: 12px;color: #444444;margin-bottom: 10px;}\n";
+  ptr +="</style>\n";
+  ptr +="</head>\n";
+  ptr +="<body>\n";
+  ptr +="<div id=\"webpage\">\n";
+  ptr +="<h1>DOFII</h1>\n";
+  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
+  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
+  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
+  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
+  ptr +="</div>\n";
+  ptr +="</body>\n";
+  ptr +="</html>\n";
+  return ptr;
+  }
