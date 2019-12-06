@@ -1,4 +1,4 @@
-# Robot Dofii
+# ROBOT DOFII
 * Easy to build desktop companion robot
 * Reprogrammable and Teaches Programming
 * Build your own for less than $20 (without battery)
@@ -8,7 +8,7 @@
 * Code Pattern Guide Included
 
 ## Quick Start
-1. Setup The ESP8266* 
+1. Setup The ESP8266
     * Download Arduino IDE: https://www.arduino.cc/en/Main/Software
     * Open Arduino IDE and click: File -> Preferences -> Additional Boards Manager --> Paste this     link: https://arduino.esp8266.com/stable/package_esp8266com_index.json
     * Setup the board: Go to Tools -> Board -> Board Manager -> search ESP8266 Community, then click install
@@ -34,3 +34,6 @@
 * (Show Photo)
 
 ## Wiring Connection
+
+## Supplementary Video
+* (Link YouTube Video)
