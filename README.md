@@ -1,25 +1,29 @@
 # Robot Dofii
-* Homebrewed tabletop companion Robot
-* Build your own at less than $20 (without battery)
+* Easy to build desktop companion robot
+* Reprogrammable and Teaches Programming
+* Build your own for less than $20 (without battery)
 ## Features
-* Over-The-Air Updates
 * Smartphone Controlled
-* Programmable
+* Over-The-Air Update
+* Code Pattern Guide Included
 ## Table Of Contents
 ## Quick Start
 1. Setup The ESP8266 (Click Here).
-2. Upload the code.
+2. Upload the code dofii.ino
 3. Find the IP Address from the Arduino IDE Serial Monitor. 
-3. Copy and paste the IP Address in the browser. 
+3. Copy and paste the IP Address in the browser and start from there
 
 ## Bill Of Materials
-Ultrasonic Sensor x 1 = 
-ESP8266 X 1 = 
+Ultrasonic Sensor x 1  = $2.00 approx.
+ESP8266 x 1  = $5.00 approx.
+Pan and Tilt x 1 set = $3.00 approx.
+Servo Motors x 2 (included in pan and tilt) = $5.00 approx.
+18650 Battery Holder x 2 slots = $1.00 approx.
+Solid Wires #22 x 3ft. = $1.00 approx
+Jumper Wires male/female x 4 = $0.5 approx 
+18650 Battery x 2 = Depends on you 
 
-<<<<<<< HEAD
-## ESP8266 Setup
+# Robot Construction
+* (Show Photo)
+
 ## Wiring Connection
-=======
-# ESP8266 Setup
-# Wiring Connection
->>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
