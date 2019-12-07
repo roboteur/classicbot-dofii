@@ -37,17 +37,14 @@
 * (Show Video)
 
 ## Wiring Connection
-    * Ultrasonic Sensor
-<<<<<<< HEAD
-        TRIG --> D6
-        ECHO --> D5  
-    * Sevo Motors 
-        HEAD --> D7
-        BODY --> D8
-=======
-        TRIG -->
-        ECHO -->   
->>>>>>> f06a7476e09315642740333cec96b72badfe9337
+   * Ultrasonic Sensor
+        * TRIG --> D6
+        * ECHO --> D5  
+   * Servo Motors 
+        * HEAD --> D7
+        * BODY --> D8
+   * ALL Vcc --> 5V Powersupply
+   * ALL Gnd --> GND Powersupply
 
 ## Supplementary Video
 * (Link YouTube Video)
