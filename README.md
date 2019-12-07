@@ -1,11 +1,11 @@
 # ROBOT DOFII
 * Easy to build desktop companion robot
 * Reprogrammable and Teaches Programming
-* Build your own for less than $20 (without battery)
+* Build Your Own For Around $20 (excluding battery)
 ## Features
 * Smartphone Controlled
 * Over-The-Air Update
-* Code Pattern Guide Included
+* Code Design Pattern Included
 
 ## Quick Start
 1. Setup The ESP8266
@@ -28,7 +28,10 @@
 6. Solid Wires #22 x 3ft. = $1.00 approx.
 7. Jumper Wires male/female x 4 = $0.5 approx. 
 8. USB Cable x 1 = $2.00
-8. 18650 Battery x 2 = Depends on you. 
+9. 18650 Battery x 2 = Depends on you. 
+10. Half-sized breadboard x 1 = $2.00 
+11. Long-legged Headers x 3 = $2.00
+
 
 ## Robot Construction
 * (Show Photo)
