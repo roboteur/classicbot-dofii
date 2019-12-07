@@ -1,4 +1,12 @@
-/* ROBOT DOFII by The Roboteur */
+/* ROBOT DOFII (by The Roboteur)
+ *  
+ *  Website: www.roboteur.me
+ *  Facebook: facebook.com/TheRoboteur
+ *  Instagram: instagram.com/the_roboteur
+ *  YouTube: bitly.com/RoboteurTV  
+ *  GitHub: github.com/roboteur  
+ *  
+ */
 
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
@@ -16,20 +24,20 @@ const char* password = "X9425TE9";            // Wifi Password
 /* Create Server */
 ESP8266WebServer server;
 
-bool ota_flag = true;
-uint16_t time_elapsed = 0;
-int blinkSpeed = 1000;
+bool ota_time_trigger = true;
+uint16_t ota_time_consumed = 0;
 
-/* For ultrasonic sensor */
-const int trigPin = D6;                  // DEFINE PIN NUMBERS           
-const int echoPin = D5;
-           
-long duration;                          // DEFINE VARIABLES
+
+/* Assign Pins To Ultrasonic Sensor */
+const int trigPin = D6;     
+const int echoPin = D5; 
+            
+long duration;                          
 int distance;
 
 /* Define Servo Variables */
-int PIN_BODY = D8; // Body 
-int PIN_HEAD = D7; // Neck (temporary)
+int PIN_BODY = D8; 
+int PIN_HEAD = D7; 
 
 /* Create Servo Object */
 Servo SERVO_BODY;
@@ -37,10 +45,6 @@ Servo SERVO_HEAD;
 
 int state_current = 0;
 
-
-/*******************/ 
-
-/**** SETUP ********/
 void setup() {
   // pinMode(2, OUTPUT);   // DEFAULT PIN/LED                                                       
   Serial.begin(115200); 
@@ -55,6 +59,7 @@ void setup() {
 
   SERVO_BODY.attach(PIN_BODY);
   SERVO_HEAD.attach(PIN_HEAD); 
+  
   pinMode(trigPin, OUTPUT); 
   pinMode(echoPin, INPUT);
   
@@ -62,10 +67,6 @@ void setup() {
   Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  
-
-  // SET THE ROUTE IP/ota thru ESP.restart() function
-  // BYPASSES THE LOOP
 
   server.on("/ota", [](){
     server.send(200, "text/plain", "Upload the firmware.");
@@ -121,8 +122,7 @@ void setup() {
   server.on("/down", handle_Down);
   server.on("/right", handle_Right);
   server.on("/left", handle_Left);
-  server.on("/mid", handle_Mid);
-  
+  server.on("/mid", handle_Mid);  
   
   server.begin();
 
@@ -131,25 +131,20 @@ void setup() {
 void loop() {
  
   /* For Route IP OTA */
-  if(ota_flag)
+  if(ota_time_trigger)
   {
-    while(time_elapsed < 25000)
+    while(ota_time_consumed < 25000)
     {
       ArduinoOTA.handle();
-      time_elapsed = millis();
+      ota_time_consumed = millis();
       delay(10);
     }
-    ota_flag = false;
+    ota_time_trigger = false;
   }
 
   server.handleClient();
   
-  // digitalWrite(2, !digitalRead(2));
-  // delay(blinkSpeed);
-
-  state_machine_serial();
-
-  
+  state_machine_serial();  
 
 }
 
@@ -256,6 +251,7 @@ void state_machine_serial() {
 
 void handle_OnConnect() {
   server.send(200, "text/html", SendHTML()); 
+    state_current = 6;
   
   }
 
@@ -302,18 +298,9 @@ String SendHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
-=======
-  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
-  ptr +="<p><a href=\"/ready\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
-  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
->>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -332,18 +319,9 @@ String LeftHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
-=======
-  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
-  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
->>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -362,18 +340,9 @@ String RightHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
-=======
- ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
-  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
->>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -392,18 +361,9 @@ String UpHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
-=======
-  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
-  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";  
->>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -422,18 +382,9 @@ String DownHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
-=======
-  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
-  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
->>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -452,18 +403,9 @@ String MidHTML(){
   ptr +="<body>\n";
   ptr +="<div id=\"webpage\">\n";
   ptr +="<h1>DOFII</h1>\n";
-<<<<<<< HEAD
   ptr +="<p><a href=\"/up\"><button>U</button></a></p>";
   ptr +="<p><a href=\"/left\"><button>L</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/mid\"><button>-</button></a>&nbsp;&nbsp;&nbsp;<a href=\"/right\"><button>R</button></a></p>";
   ptr +="<p><a href=\"/down\"><button>D</button></a></p>";
-=======
-  ptr +="<p><a href=\"/up\"><button>UP</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/down\"><button>DOWN</button></a></p>";
-  ptr +="<p><a href=\"/left\"><button>LEFT</button></a></p>";
-  ptr +="<p><a href=\"/mid\"><button>MID</button></a></p>";
-  ptr +="<p><a href=\"/right\"><button>RIGHT</button></a></p>";   
->>>>>>> 1aad63c661dd95abffec2beb0c41567f420619fc
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
