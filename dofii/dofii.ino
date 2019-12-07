@@ -4,7 +4,7 @@
  * Facebook: facebook.com/TheRoboteur
  * Instagram: instagram.com/the_roboteur
  * YouTube: bitly.com/RoboteurTV  
- * GitHub: github.com/roboteur  
+ * GitHub: github.com/roboteur
  *  
  */
 
