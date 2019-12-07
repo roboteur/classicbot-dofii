@@ -38,8 +38,11 @@
 
 ## Wiring Connection
     * Ultrasonic Sensor
-        TRIG -->
-        ECHO -->   
+        TRIG --> D6
+        ECHO --> D5  
+    * Sevo Motors 
+        HEAD --> D7
+        BODY --> D8
 
 ## Supplementary Video
 * (Link YouTube Video)
