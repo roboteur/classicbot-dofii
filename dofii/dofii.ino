@@ -18,8 +18,8 @@
 #include <Servo.h> 
 
 /* Network User and Password */
-const char* ssid = "ZTEH108N_3C01E";          // Wifi User Name
-const char* password = "X9425TE9";            // Wifi Password
+const char* ssid = "ANYWIFIUSERNAME";          // Wifi User Name
+const char* password = "ANYWIFIPASSWORD";      // Wifi Password
 
 /* Create Server */
 ESP8266WebServer server;
