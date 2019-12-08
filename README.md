@@ -47,4 +47,4 @@
    * ALL Gnd --> GND Powersupply
 
 ## Supplementary Video
-* (Link YouTube Video)
+* https://youtu.be/-PQkA54bA8s
