@@ -1,11 +1,15 @@
-# ROBOT DOFII
+# ROBOT DOFII 
 * Easy to build desktop companion robot
 * Reprogrammable and Teaches Programming
 * Build Your Own For Around $20 (excluding battery)
+
 ## Features
 * Smartphone Controlled
 * Over-The-Air Update
 * Code Design Pattern Included
+
+## How It Works 
+* Here's the link --> https://youtu.be/-PQkA54bA8s
 
 ## Quick Start
 1. Setup The ESP8266
@@ -46,5 +50,5 @@
    * ALL Vcc --> 5V Powersupply
    * ALL Gnd --> GND Powersupply
 
-## Supplementary Video
-* https://youtu.be/-PQkA54bA8s
+## Demo Video
+* Here's the link --> https://youtu.be/-PQkA54bA8s
