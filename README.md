@@ -33,8 +33,8 @@
 11. 18650 Battery x 2 = Depends on you. 
 
 ## Robot Construction
-* (Show Photo)
-* (Show Video)
+
+![Robot Construction](/robot-dofii-anatomy.png)
 
 ## Wiring Connection
    * Ultrasonic Sensor
