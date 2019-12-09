@@ -34,7 +34,7 @@
 
 ## Robot Construction
 
-![Robot Construction](/robot-dofii-anatomy.png)
+![Robot Construction](/robot-dofii-01.png)
 
 ## Wiring Connection
    * Ultrasonic Sensor
