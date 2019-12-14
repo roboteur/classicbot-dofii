@@ -34,7 +34,8 @@
 8. USB Cable x 1 = $2.00
 9. Half-sized breadboard x 1 = $2.00 
 10. Long-legged Headers x 3 = $2.00
-11. 18650 Battery x 2 = Depends on you. 
+11. Breadboard Powersupply x 1 = $2.00
+12. 18650 Battery x 2 = Depends on you. 
 
 ## Robot Construction
 
