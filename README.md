@@ -21,7 +21,7 @@
     * Upload the Code: Sketch -> Upload (There should be no error. If there is, it is mostly about user permissions. Message me if you can't go through this.)
 2. Upload the code dofii.ino
 3. Find the IP Address from the Arduino IDE Serial Monitor. 
-3. Copy and paste the IP Address in the browser and start from there
+4. Copy and paste the IP Address in the browser and start from there
 
 ## Bill Of Materials
 1. Wemos D1 Mini (ESP8266) x 1  = $5.00 approx.
