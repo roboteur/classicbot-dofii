@@ -56,4 +56,4 @@
 
 ## Feel Free To Direct Message At
 * Facebook: https://facebook.com/TheRoboteur
-* Instagram: https://insragram.com/the_roboteur
+* Instagram: https://instagram.com/the_roboteur
