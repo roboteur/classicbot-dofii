@@ -31,15 +31,15 @@
 5. 18650 Battery Holder x 2 slots = $1.00 approx.
 6. Solid Wires #22 x 3ft. = $1.00 approx.
 7. Jumper Wires male/female x 4 = $0.5 approx. 
-8. USB Cable x 1 = $2.00
-9. Half-sized breadboard x 1 = $2.00 
-10. Long-legged Headers x 3 = $2.00
-11. Breadboard Powersupply x 1 = $2.00
+8. USB Cable x 1 = $2.00 approx.
+9. Half-sized breadboard x 1 = $2.00 approx. 
+10. Long-legged Headers x 3 = $2.00 approx.
+11. Breadboard Powersupply x 1 = $2.00 approx.
 12. 18650 Battery x 2 = Depends on you. 
 
 ## Robot Construction
 
-![Robot Construction](/robot-dofii-01.png)
+![Robot Construction](./img/roboteur-dofii-construction.png)
 
 ## Wiring Connection
    * Ultrasonic Sensor
