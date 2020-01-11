@@ -50,6 +50,9 @@
         * BODY --> D8
    * ALL Vcc --> 5V Powersupply
    * ALL Gnd --> GND Powersupply
+   
+## IDE
+ * Arduino IDE Version 1.8.9
 
 ## Demo Video
 * Here's the link --> https://youtu.be/-PQkA54bA8s
